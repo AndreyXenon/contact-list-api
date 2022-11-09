@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<form action="" id="form">
+  <label for="username">Имя пользователя</label><br><input type="text" name="username" id="username"><br>
+  <label for="email">Почта</label><br><input type="email" name="email" id="email"><br>
+  <label for="mobile">Мобильный телефон</label><br><input type="tel" name="mobile" id="mobile"><br>
+  <label for="home">Домашний телефон</label><br><input type="tel" name="home" id="home"><br>
+  <input type="button" value="Создать контакт" onclick="send_request()">
+</form>
+<script>
+  function send_request(){
+    let data = $('#form').serializeArray().reduce(function (obj, item) {
+      obj[item.name] = item.value;
+      return obj;
+    }, {});
+    let settings = {
+      "url": "/v1/contact",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify(data),
+    };
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
+</script>
+</body>
+</html>

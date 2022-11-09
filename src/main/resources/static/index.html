@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact List</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<a href="/v1/contact">Получить список всех контактов</a><br>
+
+<a href="/postNew.html">Добавить новый контакт</a><br>
+
+<input type="button" value="Удалить все контакты" onclick="delete_all()"><br>
+
+<label for="id_get">ID</label><input type="text" name="id_get" id="id_get">
+<input type="button" value="Получить контакт по id" onclick="get_by_id()"><br>
+
+<label for="id_del">ID</label><input type="text" name="id_del" id="id_del">
+<input type="button" value="Удалить контакт по id" onclick="delete_by_id()"><br>
+
+<a href="/putById.html">Обновить контакт</a><br>
+</body>
+<script>
+  function delete_all(){
+    let settings = {
+      "url": "/v1/contact",
+      "method": "DELETE",
+      "timeout": 0,
+    };
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
+  function get_by_id(){
+    window.location.href = "/v1/contact/" + document.getElementById('id_get').value;
+  }
+  function delete_by_id(){
+    let settings = {
+      "url": "/v1/contact/" + document.getElementById('id_del').value,
+      "method": "DELETE",
+      "timeout": 0,
+    };
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+    });
+  }
+</script>
+</html>
+
